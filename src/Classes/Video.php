@@ -5,6 +5,7 @@ namespace Cent\PhpTest\Classes;
 class Video
 {
     private $service;
+    private $id;
     private $title;
     private $description;
     private $publicationDate;
@@ -30,7 +31,8 @@ class Video
                 throw new \Exception("Video with ID {$id} not found");
             }
 
-            $videoItem = $videoData->items[0];            
+            $videoItem = $videoData->items[0];
+            $this->id = $videoItem->id;
             $this->title = $videoItem->snippet->title ?? '';
             $this->description = $videoItem->snippet->description ?? '';
             $this->publicationDate = $videoItem->snippet->publishedAt ?? '';
@@ -49,6 +51,7 @@ class Video
     public function getData()
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'publicationDate' => $this->publicationDate,

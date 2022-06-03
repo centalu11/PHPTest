@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2022 at 10:57 AM
+-- Generation Time: Jun 03, 2022 at 08:14 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.3.20
 
@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `videos` (
   `id` int(11) NOT NULL,
-  `channelUsername` varchar(255) NOT NULL,
+  `videoId` varchar(255) NOT NULL,
+  `channelId` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `publicationDate` varchar(255) NOT NULL,
@@ -48,7 +49,8 @@ CREATE TABLE `videos` (
 -- Indexes for table `videos`
 --
 ALTER TABLE `videos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique-video-id` (`videoId`);
 
 --
 -- AUTO_INCREMENT for dumped tables

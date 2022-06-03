@@ -11,18 +11,23 @@ class Playlist
         $this->service = $service;
     }
 
-    public function getPlaylistByID($id)
+    public function getPlaylistByID($id, $page)
     {
         try {
             $playlistData = $this->service->playlistItems->listPlaylistItems('contentDetails', [
-                'playlistId' => $id
+                'playlistId' => $id,
+                'maxResults' => 50,
+                'pageToken' => $page
             ]);
 
             if (empty($playlistData->items)) {
                 throw new \Exception("Playlist with ID {$id} not found");
             }
-
-            return $playlistData->items;
+            return [
+                'prevPage' => $playlistData->prevPageToken,
+                'nextPage' => $playlistData->nextPageToken,
+                'items' => $playlistData->items
+            ];
         } catch (\Exception $err) {
             throw $err;
         }

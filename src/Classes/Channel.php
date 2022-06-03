@@ -18,11 +18,20 @@ class Channel
                 'forUsername' => $username
             ]);
 
-            if (empty($channelData->items[0])) {
-                throw new \Exception("Channel with username {$username} not found");
-            }
+            return !empty($channelData->items[0]) ? $channelData->items[0] : [];
+        } catch (\Exception $err) {
+            throw $err;
+        }
+    }
 
-            return $channelData->items[0];
+    public function getChannelFromID($id)
+    {
+        try {
+            $channelData = $this->service->channels->listChannels('contentDetails', [
+                'id' => $id
+            ]);
+
+            return !empty($channelData->items[0]) ? $channelData->items[0] : [];
         } catch (\Exception $err) {
             throw $err;
         }
